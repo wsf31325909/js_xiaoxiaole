@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html >
+	<head>
+		<meta charset="UTF-8">
+		<title>风声贪吃蛇2.0</title>
+		<script src="js/jquery3.0.js"></script>
+		<link rel="stylesheet" href="css/index.css" />
+	</head>
+	<!--雪花场景-->
+	<div style="width: 100%;height: 100%;position: absolute;top: 0;" id="snow-stage"></div>
+	<!--雪花场景-->
+	<body>
+		<div class="box">
+			<div class="left-box">
+				<div class="menu">
+					开始
+					<p class="start"></p>
+				</div>
+				<div class="menu">
+					难度
+					<div class="dif" n="1">
+						简单
+					</div>
+					<div class="dif" n="2">
+						普通
+					</div>
+					<div class="dif" n="3">
+						困难
+					</div>
+					<div class="dif" n="4">
+						很强
+					</div>
+					<div class="dif" n="5">
+						很叼
+					</div>
+					<div class="dif" n="6">
+						作死
+					</div>
+					<p class="dif2" n="1">
+						简单
+					</p>
+				</div>
+				<div class="menu">
+					速度
+					<div class="speed" n="1">
+						步行
+					</div>
+					<div class="speed" n="2">
+						跑步
+					</div>
+					<div class="speed" n="3">
+						汽车
+					</div>
+					<div class="speed" n="4">
+						动车
+					</div>
+					<div class="speed" n="5">
+						飞机
+					</div>
+					<div class="speed" n="6">
+						火箭
+					</div>
+					<p class="speed2" n="1">
+						步行
+					</p>
+				</div>
+				<div class="menu">
+					道具
+					<div class="prop" n="1">
+						开启
+					</div>
+					<div class="prop" n="0">
+						关闭
+					</div>
+					<div class="prop3" n="2">
+						增肌
+					</div>
+					<div class="prop3" n="3">
+						脱壳
+					</div>
+					<div class="prop3" n="4">
+						美食
+					</div>
+					<div class="prop3" n="5">
+						智拆
+					</div>
+					<div class="prop3" n="6">
+						强拆
+					</div>
+					<div class="prop3" n="7">
+						弹簧
+					</div>
+					<div class="trandiv" title="点击可选择开启单种道具模式！"></div>
+					<p class="prop2" n="0">
+						关闭
+					</p>
+				</div>
+				<div class="menu">
+					音乐
+					<div class="music">
+						开启
+					</div>
+					<div class="music">
+						关闭
+					</div>
+					<div class="prem">
+						<<
+					</div>
+					<div class="nxtm">
+						>>
+					</div>
+					<p class="music2">
+						关闭
+					</p>
+					<p class="music3">
+						01
+					</p>
+				</div>
+			</div>
+			<audio class="audio" loop="loop"></audio>
+			<img src="images/jiayou.gif" alt="" width="80" height="80" class="jiayou"/>
+			<canvas id="can1" width="800" height="600"></canvas>
+			<div class="right-box">
+				<div class="tips">
+					提示窗口
+				</div>
+				<div class="fenshu">
+					分数：<span class="fenshu2">0</span>
+				</div>
+				<div class="paihang">
+					<div class="ptitle">
+						排行榜
+					</div>
+					<div class="difnum">
+						难度代号：<span class="difnum2">000</span>
+					</div>
+					<table class="ptable" width="100%">
+						<tr>
+							<th width="20%">排名</th>
+							<th width="40%">昵称</th>
+							<th width="40%">分数</th>
+						</tr>
+						<tr>
+							<td class="num"></td>
+							<td class="name"></td>
+							<td class="fs"></td>
+						</tr>
+						<tr>
+							<td class="num"></td>
+							<td class="name"></td>
+							<td class="fs"></td>
+						</tr>
+						<tr>
+							<td class="num"></td>
+							<td class="name"></td>
+							<td class="fs"></td>
+						</tr>
+						<tr>
+							<td class="num"></td>
+							<td class="name"></td>
+							<td class="fs"></td>
+						</tr>
+						<tr>
+							<td class="num"></td>
+							<td class="name"></td>
+							<td class="fs"></td>
+						</tr>
+						<tr>
+							<td class="num"></td>
+							<td class="name"></td>
+							<td class="fs"></td>
+						</tr>
+						<tr>
+							<td class="num"></td>
+							<td class="name"></td>
+							<td class="fs"></td>
+						</tr>
+						<tr>
+							<td class="num"></td>
+							<td class="name"></td>
+							<td class="fs"></td>
+						</tr>
+						<tr>
+							<td class="num"></td>
+							<td class="name"></td>
+							<td class="fs"></td>
+						</tr>
+						<tr>
+							<td class="num"></td>
+							<td class="name"></td>
+							<td class="fs"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="liuming">
+			<div class="hello">很好，您现在有资格在排行榜留下大名咯！</div>
+			<div class="lsfenshu">分数：<span class="lsfenshu2">999</span></div>
+			<div class="lsnd">难度代号：<span class="lsnd2">999</span></div>
+				<input type="text" name="name" placeholder="请在此输入您的称呼！"  class="name2" />
+				<input type="button" value="提交" class="tijiao" />
+				<input type="button" value="低调" class="didiao" />
+		</div>
+	</body>
+</html>
+<script src="js/snow.js"></script>
+<script src="js/main.js"></script>
+<script src="js/css.js"></script>
+

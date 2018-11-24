@@ -1,0 +1,826 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>贪吃蛇1.0</title>
+	</head>
+	<script type="text/javascript" src="js/jquery3.0.js">
+		
+	</script>
+	<style>
+		html {
+			background: -webkit-radial-gradient(center, ellipse, #430d6d 0%, #000000 100%);
+			background: radial-gradient(ellipse at center, #430d6d 0%, #000000 100%);
+			height: 100%;
+		}
+		
+		.stage {
+			-webkit-perspective: 1000px;
+			width: 20em;
+			height: 20em;
+			top: 30%;
+			left: 40px;
+			position: absolute;
+		}
+		
+		.cube {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			transition: 1s;
+			-webkit-transform-style: preserve-3d;
+			-webkit-transform: rotateX(-19deg) rotateY(-14deg)rotateZ(0deg);
+		}
+		
+		.cube * {
+			background-color: rgba(0, 0, 0, 0.5);
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			border: 2px solid rgba(54, 226, 248, 0.5);
+			-webkit-box-shadow: 0 0 5em rgba(0, 128, 0, 0.4);
+		}
+		
+		.cube div {
+			width: 200px;
+			height: 200px;
+		}
+		
+		.font {
+			-webkit-transform: translateZ(10em);
+		}
+		
+		.font:hover {
+			opacity: 0.8;
+		}
+		
+		.back {
+			-webkit-transform: rotateX(180deg) translateZ(10em);
+		}
+		
+		.back:hover {
+			opacity: 0.8;
+		}
+		
+		.left {
+			-webkit-transform: rotateY(-90deg) translateZ(10em);
+		}
+		
+		.left:hover {
+			opacity: 0.8;
+		}
+		
+		.right {
+			-webkit-transform: rotateY(90deg) translateZ(10em);
+		}
+		
+		.right:hover {
+			opacity: 0.8;
+		}
+		
+		.top {
+			-webkit-transform: rotateX(90deg) translateZ(10em);
+		}
+		
+		.top:hover {
+			opacity: 0.8;
+		}
+		
+		.bottom {
+			-webkit-transform: rotateX(-90deg) translateZ(10em);
+		}
+		
+		.bottom:hover {
+			opacity: 0.8;
+		}
+		
+		.cube div p {
+			color: blue;
+			width: 50px;
+			height: 50px;
+			text-align: center;
+			line-height: 50px;
+			margin-left: 70px;
+			margin-top: 70px;
+			background-color: rgb(43, 141, 169);
+			border-radius: 50px;
+		}
+		
+		.cube div p:hover {
+			cursor: pointer;
+		}
+		
+		.cube div div {
+			width: 10px;
+			height: 10px;
+			border-radius: 10px;
+			background-color: yellowgreen;
+			position: absolute;
+		}
+		
+		.speed1 {
+			margin-left: 60px;
+			margin-top: 130px;
+		}
+		
+		.speed2 {
+			display: none;
+			margin-left: 90px;
+			margin-top: 130px;
+		}
+		
+		.speed3 {
+			display: none;
+			margin-left: 120px;
+			margin-top: 130px;
+		}
+		
+		.obnum1 {
+			margin-left: 60px;
+			margin-top: 130px;
+		}
+		
+		.obnum2 {
+			display: none;
+			margin-left: 90px;
+			margin-top: 130px;
+		}
+		
+		.obnum3 {
+			display: none;
+			margin-left: 120px;
+			margin-top: 130px;
+		}
+			*{padding: 0;margin: 0;}
+			span {
+				width: 2px;
+				height: 2px;
+				background: white;
+				display: inline-block;
+				border-radius: 1px;
+				position: absolute;
+				transition: 3s;
+			}
+	</style>
+	<script type="text/javascript">
+		window.onload = function() {
+			function add() {
+	var d1 = document.getElementById('div'),
+		s1 = document.createElement('span');
+		var q=document.getElementsByTagName('span');
+		var d2=d1.clientWidth-30;
+		n = Math.floor(Math.random() * d2);
+		h=d1.clientHeight;
+		m=Math.floor(Math.random() * 500);
+		s1.style.left = n + 'px';
+		s1.style.top = 0;
+	        d1.appendChild(s1);
+	setTimeout(function bdd(){
+		s1.style.left = (n-m)+'px';
+		s1.style.top = h-50+'px';//这里是定义最后的位置
+		if(q.length>90){d1.removeChild(q[0])}
+		add();
+	},30)
+}
+add();
+			music();
+			var cubebut = document.getElementsByClassName('cubebut');
+			for(let i = 0; i < 6; i++) {
+				cubebut[i].style.backgroundColor = "yellowgreen";
+			}
+			cubebut[0].style.backgroundColor = 'rgb(43,141,169)';
+			var cube = document.getElementsByClassName('cube')[0];
+
+			var speed1 = document.getElementsByClassName('speed1')[0];
+			var speed2 = document.getElementsByClassName('speed2')[0];
+			var speed3 = document.getElementsByClassName('speed3')[0];
+			var ob1 = document.getElementsByClassName('obnum1')[0];
+			var ob2 = document.getElementsByClassName('obnum2')[0];
+			var ob3 = document.getElementsByClassName('obnum3')[0];
+
+			document.getElementsByClassName('font')['0'].onclick = function() {
+				for(let i = 0; i < 6; i++) {
+					cubebut[i].style.backgroundColor = "yellowgreen";
+				}
+				cubebut[0].style.backgroundColor = 'rgb(43,141,169)';
+				cube.style.WebkitTransform = "rotateX(-19deg) rotateY(-14deg) rotateZ(0deg)";
+				speed1.style.backgroundColor = "yellowgreen";
+				speed2.style.backgroundColor = "yellowgreen";
+				speed3.style.backgroundColor = "yellowgreen";
+				ob1.style.backgroundColor = "yellowgreen";
+				ob2.style.backgroundColor = "yellowgreen";
+				ob3.style.backgroundColor = "yellowgreen";
+
+			}
+			document.getElementsByClassName('top')['0'].onclick = function() {
+				for(let i = 0; i < 6; i++) {
+					cubebut[i].style.backgroundColor = "yellowgreen";
+				}
+				cubebut[3].style.backgroundColor = 'rgb(43,141,169)';
+				cube.style.WebkitTransform = "rotateX(-109deg) rotateY(-5deg) rotateZ(-20deg)";
+				speed1.style.backgroundColor = "yellowgreen";
+				speed2.style.backgroundColor = "yellowgreen";
+				speed3.style.backgroundColor = "yellowgreen";
+				ob1.style.backgroundColor = "yellowgreen";
+				ob2.style.backgroundColor = "yellowgreen";
+				ob3.style.backgroundColor = "yellowgreen";
+			}
+			document.getElementsByClassName('bottom')['0'].onclick = function() {
+				for(let i = 0; i < 6; i++) {
+					cubebut[i].style.backgroundColor = "yellowgreen";
+				}
+				cubebut[4].style.backgroundColor = 'rgb(43,141,169)';
+				cube.style.WebkitTransform = "rotateX(91deg) rotateY(-4deg) rotateZ(15deg)";
+				speed1.style.backgroundColor = "yellowgreen";
+				speed2.style.backgroundColor = "yellowgreen";
+				speed3.style.backgroundColor = "yellowgreen";
+				ob1.style.backgroundColor = "yellowgreen";
+				ob2.style.backgroundColor = "yellowgreen";
+				ob3.style.backgroundColor = "yellowgreen";
+			}
+			document.getElementsByClassName('left')['0'].onclick = function() {
+				for(let i = 0; i < 6; i++) {
+					cubebut[i].style.backgroundColor = "yellowgreen";
+				}
+				cubebut[1].style.backgroundColor = 'rgb(43,141,169)';
+				cube.style.WebkitTransform = "rotateX(-19deg) rotateY(104deg) rotateZ(15deg)";
+				speed1.style.backgroundColor = "rgb(43,141,169)";
+				speed2.style.backgroundColor = "rgb(43,141,169)";
+				speed3.style.backgroundColor = "rgb(43,141,169)";
+				ob1.style.backgroundColor = "yellowgreen";
+				ob2.style.backgroundColor = "yellowgreen";
+				ob3.style.backgroundColor = "yellowgreen";
+			}
+			document.getElementsByClassName('right')['0'].onclick = function() {
+				for(let i = 0; i < 6; i++) {
+					cubebut[i].style.backgroundColor = "yellowgreen";
+				}
+				cubebut[2].style.backgroundColor = 'rgb(43,141,169)';
+				cube.style.WebkitTransform = "rotateX(9deg) rotateY(-104deg) rotateZ(15deg)";
+
+				ob1.style.backgroundColor = "rgb(43,141,169)";
+				ob2.style.backgroundColor = "rgb(43,141,169)";
+				ob3.style.backgroundColor = "rgb(43,141,169)";
+				speed1.style.backgroundColor = "yellowgreen";
+				speed2.style.backgroundColor = "yellowgreen";
+				speed3.style.backgroundColor = "yellowgreen";
+			}
+			document.getElementsByClassName('back')['0'].onclick = function() {
+				for(let i = 0; i < 6; i++) {
+					cubebut[i].style.backgroundColor = "yellowgreen";
+				}
+				cubebut[5].style.backgroundColor = 'rgb(43,141,169)';
+				cube.style.WebkitTransform = "rotateX(5deg) rotateY(165deg) rotateZ(175deg)";
+				speed1.style.backgroundColor = "yellowgreen";
+				speed2.style.backgroundColor = "yellowgreen";
+				speed3.style.backgroundColor = "yellowgreen";
+				ob1.style.backgroundColor = "yellowgreen";
+				ob2.style.backgroundColor = "yellowgreen";
+				ob3.style.backgroundColor = "yellowgreen";
+			}
+		}
+		//		*********************************************************************
+		var startflag = 1; //在游戏运行中或者电脑演示中，按键无效
+		var i = 0;
+		var tip = new Array();
+		var psnum = 0;
+		var sn_s = new Array(),
+			n_s,
+			ctx_s,
+			fx_s,
+			cc_s,
+			a_s,
+			dz_s,
+			integral_s,
+			com_s = 1,//初始为1，开始游戏时为0，电脑演示时为2
+			obdz_s = new Array(),
+			obnum = 1,
+			speednum = 1,
+			level;
+
+		function speed() {
+			var speed1 = document.getElementsByClassName('speed1')[0];
+			var speed2 = document.getElementsByClassName('speed2')[0];
+			var speed3 = document.getElementsByClassName('speed3')[0];
+			speednum++;
+			if(speednum == 4) {
+				speednum = 1;
+				speed2.style.display = "none";
+				speed3.style.display = "none";
+
+			}
+			if(speednum == 2) {
+				speed2.style.display = "block";
+				speed3.style.display = "none";
+			}
+			if(speednum == 3) {
+				speed2.style.display = "block";
+				speed3.style.display = "block";
+			}
+		}
+
+		function ob() {
+			var ob1 = document.getElementsByClassName('obnum1')[0];
+			var ob2 = document.getElementsByClassName('obnum2')[0];
+			var ob3 = document.getElementsByClassName('obnum3')[0];
+			obnum++;
+			if(obnum == 4) {
+				obnum = 1;
+				ob2.style.display = "none";
+				ob3.style.display = "none";
+
+			}
+			if(obnum == 2) {
+				ob2.style.display = "block";
+				ob3.style.display = "none";
+			}
+			if(obnum == 3) {
+				ob2.style.display = "block";
+				ob3.style.display = "block";
+			}
+		}
+
+		function game(com) {
+			
+			//游戏模式
+			if(com == 1 && com_s ==1) {
+						//开始时如果排行榜存在，删除排行榜
+			if(document.getElementsByClassName('paihang')[0]){
+				var paihang=document.getElementsByClassName('paihang')[0];
+				paihang.parentNode.removeChild(paihang);
+			}
+			//开始时让game over消失
+			var over=document.getElementsByClassName('gameover')[0];
+							 over.style.display="none";
+				com_s = 0;
+				startflag = 0;
+				//实时分数显示
+				var fenshu = document.getElementsByClassName('fenshu')[0];
+				fenshu.style.display = "block";
+				//开始按钮下的小标记
+				var sf = document.getElementsByClassName('startflag')[0];
+				sf.style.cssText = 'width: 0px;height: 0 px;display: block;border: 5px solid yellowgreen;margin - left: 45 % ;margin - top: 64 % ;';
+				//开始游戏时获取对应难度的排行榜
+				var paihang=document.createElement('table');
+				paihang.setAttribute("class", "paihang");
+				paihang.display="block";
+				var ph=document.getElementsByClassName('ph')[0];
+				ph.appendChild(paihang);
+				if(speednum == 1 && obnum == 1) {
+					level=1;
+					$.post('select.php',{levels:'1'},function(a,b){
+						if(a){for(let i=0;i<10;i++){
+						var tr=document.createElement('tr');
+						tr.innerHTML="<tr><td class='wfenshu'>"+a[i]['name']+"</td><td class='wfenshu2'>"+a[i]['fenshu']+"</td></tr>";
+						paihang.appendChild(tr);
+						}
+						}
+					},'json');
+				} else if(speednum == 1 && obnum == 2) {
+					level = 2;					
+						$.post('select.php',{levels:'2'},function(a,b){
+						if(a){for(let i=0;i<10;i++){
+						var tr=document.createElement('tr');
+						tr.innerHTML="<tr><td class='wfenshu'>"+a[i]['name']+"</td><td class='wfenshu2'>"+a[i]['fenshu']+"</td></tr>";
+						paihang.appendChild(tr);
+						}
+						}
+					},'json');		
+				} else if(speednum == 1 && obnum == 3) {
+					level = 3;
+					$.post('select.php',{levels:'3'},function(a,b){
+						if(a){for(let i=0;i<10;i++){
+						var tr=document.createElement('tr');
+						tr.innerHTML="<tr><td class='wfenshu'>"+a[i]['name']+"</td><td class='wfenshu2'>"+a[i]['fenshu']+"</td></tr>";
+						paihang.appendChild(tr);
+						}
+						}
+					},'json');
+				} else if(speednum == 2 && obnum == 1) {
+					level = 4;
+				$.post('select.php',{levels:'4'},function(a,b){
+						if(a){for(let i=0;i<10;i++){
+						var tr=document.createElement('tr');
+						tr.innerHTML="<tr><td class='wfenshu'>"+a[i]['name']+"</td><td class='wfenshu2'>"+a[i]['fenshu']+"</td></tr>";
+						paihang.appendChild(tr);
+						}
+						}
+					},'json');
+				} else if(speednum == 2 && obnum == 2) {
+					level = 5;
+					$.post('select.php',{levels:'5'},function(a,b){
+						if(a){for(let i=0;i<10;i++){
+						var tr=document.createElement('tr');
+						tr.innerHTML="<tr><td class='wfenshu'>"+a[i]['name']+"</td><td class='wfenshu2'>"+a[i]['fenshu']+"</td></tr>";
+						paihang.appendChild(tr);
+						}
+						}
+					},'json');
+				} else if(speednum == 2 && obnum == 3) {
+					level = 6;
+					$.post('select.php',{levels:'6'},function(a,b){
+						if(a){for(let i=0;i<10;i++){
+						var tr=document.createElement('tr');
+						tr.innerHTML="<tr><td class='wfenshu'>"+a[i]['name']+"</td><td class='wfenshu2'>"+a[i]['fenshu']+"</td></tr>";
+						paihang.appendChild(tr);
+						}
+						}
+					},'json');
+				} else if(speednum == 3 && obnum == 1) {
+					level = 7;
+				$.post('select.php',{levels:'7'},function(a,b){
+						if(a){for(let i=0;i<10;i++){
+						var tr=document.createElement('tr');
+						tr.innerHTML="<tr><td class='wfenshu'>"+a[i]['name']+"</td><td class='wfenshu2'>"+a[i]['fenshu']+"</td></tr>";
+						paihang.appendChild(tr);
+						}
+						}
+					},'json');
+				} else if(speednum == 3 && obnum == 2) {
+					level = 8;
+				$.post('select.php',{levels:'8'},function(a,b){
+						if(a){for(let i=0;i<10;i++){
+						var tr=document.createElement('tr');
+						tr.innerHTML="<tr><td class='wfenshu'>"+a[i]['name']+"</td><td class='wfenshu2'>"+a[i]['fenshu']+"</td></tr>";
+						paihang.appendChild(tr);
+						}
+						}
+					},'json');
+				} else if(speednum == 3 && obnum == 3) {
+					level = 9;
+					$.post('select.php',{levels:'9'},function(a,b){
+						if(a){for(let i=0;i<10;i++){
+						var tr=document.createElement('tr');
+						tr.innerHTML="<tr><td class='wfenshu'>"+a[i]['name']+"</td><td class='wfenshu2'>"+a[i]['fenshu']+"</td></tr>";
+						paihang.appendChild(tr);
+						}
+						}
+					},'json');
+				}
+			}
+			if(com == 2&&com_s==1) {
+				startflag = 0;
+			}
+			if(com == 3 && com_s == 0) {
+				startflag = 0;
+			}
+			startflag++;
+			if(startflag == 1) {
+				for(let i = 0; i < 5; i++) {
+					tip[i] = document.getElementsByClassName('tip')[i];
+					tip[i].style.display = "none";
+				}
+				if(com != 3) {
+					var sn = [42], //蛇的身体个数，数组里有几个，蛇就有多长
+						dz = 43, //一来的dz值是隐藏的黄点食物，先让蛇吃一个
+						fx = 1, //fx为1默认右移，fx为20默认下移，fx为-1默认左移，fx为-20默认上移
+						//				创建画布
+						c = document.getElementById("can"),
+						n, ctx = c.getContext("2d");
+
+					c.height = c.height; //点击开始清空画布
+					var a = 200; //速度控制
+					var obdz = new Array();
+					var cc; //用于连接身体数组和障碍物数组
+					var integral; //积分
+					if(com == 1) {
+						document.onkeydown = function(e) { fx = sn[1] - sn[0] == (n = [-1, -20, 1, 20][(e || event).keyCode - 37] || fx) ? fx : n }; //键盘事件，没有这句蛇自动向右前进
+						//			上面鼠标事件控制fx的值,也就是蛇的移动方向
+						if(obnum == 2) {//生成的障碍物数量
+							for(let i = 0; i < 8; i++) {
+								while(sn.indexOf(obdz[i] = ~~(Math.random() * 400)) >= 0||(obdz[i]>40&&obdz[i]<60));//当while为真时，他会继续执行
+								draw(obdz[i], "rgb(43,141,169)");	//while没写大括号时和if一样只管下一句
+							}
+//								console.log(obdz);
+
+						} else if(obnum == 3) {
+							for(let i = 0; i < 16; i++) {
+								while(sn.indexOf(obdz[i] = ~~(Math.random() * 400)) >= 0||(obdz[i]>40&&obdz[i]<60));
+								draw(obdz[i], "rgb(43,141,169)");
+							}
+						}
+					}
+
+				} else {
+					! function() {
+						psnum++;
+
+						if(psnum == 2) {
+							sn = sn_s;
+							n = n_s;
+							obdz = obdz_s;
+							ctx = ctx_s;
+							fx = fx_s;
+							cc = cc_s;
+							a = a_s;
+							dz = dz_s;
+							integral = integral_s;
+							psnum = 0;
+							document.onkeydown = function(e) { fx = sn[1] - sn[0] == (n = [-1, -20, 1, 20][(e || event).keyCode - 37] || fx) ? fx : n }; //键盘事件，没有这句蛇自动向右前进
+							//			上面鼠标事件控制fx的值,也就是蛇的移动方向
+						}
+					}();
+				}
+
+				function draw(t, c) { //画布中生成元素
+					ctx.fillStyle = c;
+					ctx.fillRect(t % 20 * 20 + 1, ~~(t / 20) * 20 + 1, 18, 18); //生成画布元素，包括位置和大小
+				}
+
+				if(com == 1 || com == 3) {
+
+					//					****************************************
+
+					function go() {
+						if(speednum == 1) {
+							a = 200;
+						} else if(speednum == 2) {
+							a = 150;
+
+						} else if(speednum == 3) {
+							a = 80;
+						}
+
+						//					**********************
+						var obstruct = document.getElementById('obstruct');
+
+						sn.unshift(n = sn[0] + fx); //这个返回值是蛇的长度-1；n为蛇头的位置，sn数组是蛇整个身体个点的坐标,这句话实现蛇的移动，n为sn中第一个元素+1，其他元素后移
+						if(sn.indexOf(n, 1) > 0 || obdz.indexOf(n) > -1 || n < 0 || n > 399 || fx == 1 && n % 20 == 0 || fx == -1 && n % 20 == 19) {
+							startflag = 0;
+							com_s = 1;
+							var sf = document.getElementsByClassName('startflag')[0];
+							sf.style.cssText = 'width: 0px;height: 0 px;display: block;border: 5px solid red;margin - left: 45 % ;margin - top: 64 % ;';
+							var wfenshu2=document.getElementsByClassName('wfenshu2');
+							if(wfenshu2[9].innerHTML!='undefined'){	
+								var zfenshu2=eval(wfenshu2[9].innerHTML);
+							}
+							if(integral>zfenshu2||wfenshu2[9].innerHTML=='undefined'){
+							 var zuihou= document.getElementsByClassName('zuihou')[0];
+							 zuihou.style.display="block";
+							 var zfenshu=document.getElementById('zfenshu');
+							 var zlevel=document.getElementById('level');
+							 var lastfenshu=document.getElementsByClassName('lastfenshu')[0];
+							 zlevel.value=level;
+							 zfenshu.value=integral;
+							 lastfenshu.innerHTML=integral;}
+							 $('.gameover').css('display','block');
+							 return false;
+						} 
+						//死亡条件判定
+						draw(n, "Lime"); //生成蛇，n为蛇头的位置
+
+						if(n == dz) { //dz为食物的位置
+
+							integral = (sn.length - 2) * 100;
+							document.getElementsByClassName('integral')[0].innerHTML = integral;
+							cc = sn.concat(obdz);
+							while(cc.indexOf(dz = ~~(Math.random() * 400)) >= 0); //~~是取整,用while是让生成的实物不出现在蛇的身体里
+						
+							draw(dz, "Yellow"); //随机生成食物黄点
+							//因为这里面没有尾巴变黑语句，就相当于吃了食物变成尾巴
+						} else {
+							draw(sn.pop(), "Black"); //每次移动，尾巴变黑
+
+						}
+						var t = setTimeout(arguments.callee, a); //调用自身函数，递归
+						if(psnum == 1) {
+							sn_s = sn;
+							n_s = n;
+							obdz_s = obdz;
+							ctx_s = ctx;
+							fx_s = fx;
+							cc_s = cc;
+							a_s = a;
+							dz_s = dz;
+							integral_s = integral;
+							clearTimeout(t);
+						}
+					}
+					go();
+
+				}
+				if(com == 2) { //此模式为电脑演示
+					com_s = 2; //作用是当电脑演示时暂停键无效
+					 $('.gameover').css('display','none');
+					for(let i = 0; i < 5; i++) {
+						tip[i] = document.getElementsByClassName('tip')[i];
+						tip[i].style.display = "none";
+					}
+					draw(276, "rgb(43,141,169)");
+					! function() {
+						a = 300;
+						sn.unshift(n = sn[0] + fx); //这个返回值是蛇的长度-1；n为蛇头的位置，sn数组是蛇整个身体个点的坐标,这句话实现蛇的移动，n为sn中第一个元素+1，其他元素后移
+						if(sn.indexOf(n, 1) > 0 || obdz.indexOf(n) > 0 || n < 0 || n > 399 || fx == 1 && n % 20 == 0 || fx == -1 && n % 20 == 19) {
+							startflag = 0;
+							com_s = 1;
+							i = 0;
+							 $('.gameover').css('display','block');
+							return false;
+						} //死亡条件判定
+						draw(n, "Lime"); //生成蛇，n为蛇头的位置
+						if(n == dz) { //dz为食物的位置
+							i++;
+							dz = 56;
+							tip[0].style.display = "block";
+							tip[1].style.display = "block";
+							if(i == 2) {
+								fx = 20;
+								dz = 256;
+								tip[2].style.display = "block";
+							}
+							if(i == 3) {
+								fx = -1;
+								dz = 250;
+								tip[3].style.display = "block";
+							}
+							if(i == 4) {
+								dz = 245;
+							}
+							if(i == 5) {
+								dz = 240;
+							}
+							if(i == 6) {
+								dz = 200;
+								fx = -20;
+							}
+							if(i == 7) {
+								dz = 202;
+								fx = 1;
+							}
+							if(i == 8) {
+								fx = 20;
+								dz = 56;
+								tip[4].style.display = "block";
+							}
+							draw(dz, "Yellow"); //随机生成食物黄点
+							//因为这里面没有尾巴变黑语句，就相当于吃了食物变成尾巴
+						} else {
+							draw(sn.pop(), "Black"); //每次移动，尾巴变黑
+						}
+
+						setTimeout(arguments.callee, 200); //调用自身函数，递归
+					}();
+				}
+			}
+		}
+		var mcnum = 0;
+
+		function music() {
+			var mm = document.getElementsByClassName('audiodiv')[0];
+			mm.loop = true;
+			mcnum++;
+			if(mcnum == 6) {
+				mm.src = "music/m001.mp3";
+				mcnum = 0;
+				mm.play();
+				mm.loop = true;
+
+			}
+			if(mcnum == 1) {
+				mm.src = "";
+
+			}
+			if(mcnum == 2) {
+				mm.src = "music/m005.mp3";
+				mm.play();
+				mm.loop = true;
+			}
+			if(mcnum == 3) {
+				mm.src = "music/m004.mp3";
+				mm.play();
+				mm.loop = true;
+			}
+			if(mcnum == 4) {
+				mm.src = "music/m003.mp3";
+				mm.play();
+				mm.loop = true;
+			}
+			if(mcnum == 5) {
+				mm.src = "music/m002.mp3";
+				mm.play();
+				mm.loop = true;
+			}
+			
+		}
+
+	
+		function zuihou(){
+			var zui=document.getElementsByClassName('zuihou')[0];
+			zui.style.display="none";
+		}
+		function ajax(){
+			if( $('#name').val().length<6){
+		$.post('admin.php',{ name: $('#name').val(), fenshu:$('#zfenshu').val(),level:$('#level').val()}, function(a, b) {
+			if(a){
+				alert('OK!你是最棒的!');
+				console.log(a);
+				$('.zuihou').hide();
+			}
+		});}else{
+			alert('名字长度不能大于5！');
+		}
+		}
+	</script>
+	<style>
+		.startflag {
+			width: 0px;
+			height: 0px;
+			display: block;
+			border: 5px solid red;
+			margin-left: 45%;
+			margin-top: 64%;
+		}
+		.paihang {
+			margin-left: 5px;
+			margin-top: 25px;
+		}
+		.paihang tr td{
+			width: 80px;
+			text-align: center;
+			color: gold;
+			height: 28px;
+		} 
+	</style>
+
+	<body>
+	<div style="width: 100%;height: 100%;position: absolute;" id="div"></div>
+	<div style="width: 1200px; height: 550px;margin: 0 auto;position: relative;">
+		<div class="stage">
+			<div class="cube">
+				<div class="font">
+					<p class="cubebut" onclick="game(1)" onclick="startf()">开始</p>
+					<span class="startflag"></span>
+				</div>
+				<div class="left">
+					<p class="cubebut speedbut" onclick="speed()">速度</p>
+					<div class="speed1"></div>
+					<div class="speed2"></div>
+					<div class="speed3"></div>
+				</div>
+				<div class="right">
+					<p class="cubebut obbut" onclick="ob()">障碍</p>
+					<div class="obnum1"></div>
+					<div class="obnum2"></div>
+					<div class="obnum3"></div>
+				</div>
+				<div class="top">
+					<p class="cubebut" onclick="music()">换歌</p>
+				</div>
+				<div class="bottom">
+					<p class="cubebut" onclick="game(3)">暂/恢</p>
+				</div>
+				<div class="back">
+					<p class="cubebut" onclick="game(2)">电脑</p>
+				</div>
+			</div>
+		</div>
+		<div style="position: absolute;color: rgb(43,141,169);width: 320px; border: 1px solid rgb(43,141,169);display: none;left: 480px;top: 180px;z-index: 999;" class="tip">可以按键盘上的↑、↓、←、→控制蛇的移动</div>
+		<div style="position: absolute;color: rgb(43,141,169);width: 160px; border: 1px solid rgb(43,141,169); display: none;left: 480px;top: 200px;z-index: 999;" class="tip">蛇吃到黄色食物会变长</div>
+		<div style="position: absolute;color: rgb(43,141,169);width: 147px; border: 1px solid rgb(43,141,169); display: none;left: 480px;top: 220px;z-index: 999;" class="tip">注意别让蛇碰到墙壁</div>
+		<div style="position: absolute;color: rgb(43,141,169);width: 130px; border: 1px solid rgb(43,141,169); display: none;left: 480px;top: 240px;z-index: 999;" class="tip">请躲避蓝色障碍物</div>
+		<div style="position: absolute;color: rgb(43,141,169);width: 195px; border: 1px solid rgb(43,141,169); display: none;left: 480px;top: 260px;z-index: 999;" class="tip">碰到自己身体也会死亡</div>
+		<div style="position: absolute;color:  rgb(43,141,169);top: 80px;left: 430px;" class="fenshu">分数：<div style="color:  rgb(43,141,169);display:inline-block;" class="integral">0</div></div>
+		<!--画布-->
+		<canvas id="can" width="400" height="400" style="background:black;position: absolute;top: 100px;left: 430px;"></canvas>
+		<audio src="" class="audiodiv" style="display: none;"></audio>
+
+		<div class="logindiv" style="display:none;width: 180px; height: 200px; border: 1px solid rgb(43,141,169);margin-left:42% ;">
+			<br />
+			<div style="color: rgb(43,141,169);">帐号</div>
+			<br />
+			<input type="text" class="account" value="root" />
+			<br />
+			<br />
+			<div style="color: rgb(43,141,169);">密码</div>
+			<br />
+			<input type="text" class="password" value="root" />
+			<br />
+			<br />
+			<input type="button" value="登录" style="margin-left: 60px;" onclick="login()" />
+		</div>
+		<div style="position:absolute;width: 192px;height: 340px;background-color:rgb(43,141,169) ;opacity: 0.6;left: 877px;top: 106px;"class="ph">
+			<div style="position: absolute;top：0;z-index: 999;width: 200px;color: gold;top: 0;left: 33px;"> 姓名&nbsp&nbsp&nbsp分数</div>
+			
+		</div>
+		<div class="zuihou" style="display:none;z-index:999;position: absolute;font-size:18px;color: gold;width: 250px; height: 250px;background-color: rgb(43,141,169);border-radius: 20px;left: 505px;top: 160px;">
+			
+			<div style="margin-left: 8px;margin-top: 5px;">很好！！您有资格进入排行榜了，请留下您的大名！</div>
+			<br />
+			<div style="">分数：<span class="lastfenshu">sdasd</span></div>
+			<br />
+			<div>称呼：</div>
+			<input type="text" style="position: absolute;margin-top: -20px;margin-left: 50px;"name="name" id="name"/>
+			<br />
+			<input type="text" style="display: none;" name="fenshu" id="zfenshu"/>
+			<input type="text" style="display: none;" name="level" id="level"></input>
+			<br />
+			<input type="button" value="提交" style="margin-left: 60px;" onclick=" ajax()"/>
+			<input type="button"   value="低调" style="margin-left: 40px;" onclick="zuihou()"/>
+		</div>
+		<div style="display: none; position: absolute;font-size: 40px;color: greenyellow;z-index: 100; left: 530px;top: 250px;" class="gameover">GAME OVER!</div>
+	</div>
+	</body>
+
+</html>
